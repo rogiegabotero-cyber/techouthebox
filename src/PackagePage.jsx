@@ -1,4 +1,4 @@
-import Page, { CONTACT_EMAIL, PACKAGE_PRICE } from './Page.jsx'
+import Page, { composeProps, PACKAGE_PRICE } from './Page.jsx'
 import { Arrow, DomainArt, EmailArt, HostingArt, Ribbon, Spark, WebsiteArt } from './Art.jsx'
 import Link from './Link.jsx'
 import { cardPointer } from './pointer.js'
@@ -45,7 +45,6 @@ function PackagePage() {
     <Page title="The package | techoutthebox" hero={hero}
       heroClass="hero-center"
       pageClass="page-package"
-      contactTo="/#how"
       back={
         <Link to="/" className="hero-back">
           <Arrow /> Back to home
@@ -88,10 +87,7 @@ function PackagePage() {
           </div>
           <div className="package-summary-buy">
             <span className="price">{PACKAGE_PRICE}</span>
-            <a
-              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('The package')}`}
-              className="btn btn-primary"
-            >
+            <a {...composeProps('The package')} className="btn btn-primary">
               Get started <Arrow />
             </a>
           </div>

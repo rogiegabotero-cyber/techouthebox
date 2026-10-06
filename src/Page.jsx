@@ -6,8 +6,17 @@ import { Arrow } from './Art.jsx'
 import Link from './Link.jsx'
 import { scrollToSection } from './scrollToSection.js'
 
-export const CONTACT_EMAIL = 'info@techoutthebox.com'
+export const CONTACT_EMAIL = 'hello@techoutthebox.com'
 export const PACKAGE_PRICE = '$250'
+
+// Opens a Gmail compose window addressed to us. Unlike mailto:, it needs no mail app on the visitor's device.
+export const composeProps = (subject = '') => ({
+  href: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}${
+    subject ? `&su=${encodeURIComponent(subject)}` : ''
+  }`,
+  target: '_blank',
+  rel: 'noopener noreferrer',
+})
 const YEAR = new Date().getFullYear()
 
 // Hide the header while scrolling down; bring it back once scrolling stops
@@ -191,8 +200,8 @@ export function ContactCta() {
       <div className="cta">
         <h2>Ready to get online?</h2>
         <p>Tell us about your business and we’ll take it from there.</p>
-        <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-primary">
-          Say hello
+        <a {...composeProps()} className="btn btn-primary">
+          I want a website
         </a>
       </div>
     </section>
@@ -200,7 +209,7 @@ export function ContactCta() {
 }
 
 // Shared layout: header, pinned black hero, white content sliding over it, footer
-function Page({ title, hero, heroClass = '', pageClass = '', back, contactTo, children }) {
+function Page({ title, hero, heroClass = '', pageClass = '', back, children }) {
   const headerHidden = useHideOnScroll()
   const headerRef = useRef(null)
   const contentRef = useRef(null)
@@ -227,16 +236,9 @@ function Page({ title, hero, heroClass = '', pageClass = '', back, contactTo, ch
             <img className="logo-light" src={logoLight} alt="techoutthebox" />
             <img className="logo-dark" src={logoDark} alt="" />
           </Link>
-          {/* on other pages (contactTo) this goes back to the home page and scrolls there */}
-          {contactTo ? (
-            <Link to={contactTo} className="btn btn-ghost">
-              Get in touch <Arrow />
-            </Link>
-          ) : (
-            <a href="#contact" className="btn btn-ghost">
-              Get in touch <Arrow />
-            </a>
-          )}
+          <a {...composeProps()} className="btn btn-ghost">
+            Get in touch <Arrow />
+          </a>
         </div>
       </header>
 
