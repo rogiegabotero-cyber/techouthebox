@@ -2,10 +2,10 @@
 // Backdrop: a faded layer of circles, broken spirals, clouds and patterns that sits
 // behind the package card AND the pieces peeking out from behind it.
 // Drawn on a 1500 x 800 canvas; the card sits in the middle (x 480..1020, y 100..670).
-// Everything is pale orange at low opacity, so it adds texture without competing.
+// Everything is pale gray at low opacity, so it adds texture without competing.
 // ---------------------------------------------------------------------------
 
-const ORANGE = '#ff5a1f'
+const GRAY = '#9a9a96'
 
 // an Archimedean spiral around (0, 0), as a polyline
 function spiralPath(outerRadius, turns) {
@@ -92,13 +92,13 @@ function Backdrop() {
     <svg className="backdrop" viewBox="0 0 1500 800" aria-hidden="true">
       <defs>
         <pattern id="bd-dots" width="15" height="15" patternUnits="userSpaceOnUse">
-          <circle cx="3" cy="3" r="1.7" fill={ORANGE} />
+          <circle cx="3" cy="3" r="1.7" fill={GRAY} />
         </pattern>
         <pattern id="bd-plus" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path d="M12 6v12M6 12h12" stroke={ORANGE} strokeWidth="1.6" strokeLinecap="round" />
+          <path d="M12 6v12M6 12h12" stroke={GRAY} strokeWidth="1.6" strokeLinecap="round" />
         </pattern>
         <pattern id="bd-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <path d="M0 0v12" stroke={ORANGE} strokeWidth="1.4" />
+          <path d="M0 0v12" stroke={GRAY} strokeWidth="1.4" />
         </pattern>
         {/* an invisible circle around the card: solid inside, fading out toward its rim */}
         <radialGradient id="bd-fade" gradientUnits="userSpaceOnUse" cx="750" cy="390" r="560">
@@ -123,7 +123,7 @@ function Backdrop() {
 
       {/* faded circles and rings */}
       {CIRCLES.map(([x, y, r, o], i) => (
-        <circle key={`c${i}`} cx={x} cy={y} r={r} fill={ORANGE} opacity={o} />
+        <circle key={`c${i}`} cx={x} cy={y} r={r} fill={GRAY} opacity={o} />
       ))}
       {RINGS.map(([x, y, r, o, dashed], i) => (
         <circle
@@ -132,7 +132,7 @@ function Backdrop() {
           cy={y}
           r={r}
           fill="none"
-          stroke={ORANGE}
+          stroke={GRAY}
           strokeWidth="1.5"
           strokeDasharray={dashed ? '4 9' : undefined}
           opacity={o}
@@ -146,7 +146,7 @@ function Backdrop() {
           transform={`translate(${x} ${y})`}
           d={wavePath(length, amplitude, wavelength)}
           fill="none"
-          stroke={ORANGE}
+          stroke={GRAY}
           strokeWidth="1.6"
           strokeLinecap="round"
           opacity={o}
@@ -161,7 +161,7 @@ function Backdrop() {
             style={{ '--spin': `${s.spin}s` }}
             d={SPIRAL_PATHS[i]}
             fill="none"
-            stroke={ORANGE}
+            stroke={GRAY}
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeDasharray={s.dash}
@@ -177,8 +177,8 @@ function Backdrop() {
             className="bd-drift"
             style={{ '--drift': `${drift}px`, '--dur': `${dur}s`, '--delay': `-${i * 2.1}s` }}
             d={cloudPath}
-            fill={outline ? 'none' : ORANGE}
-            stroke={outline ? ORANGE : 'none'}
+            fill={outline ? 'none' : GRAY}
+            stroke={outline ? GRAY : 'none'}
             strokeWidth="2.2"
             strokeDasharray={outline ? '6 7' : undefined}
             strokeLinecap="round"

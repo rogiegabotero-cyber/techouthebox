@@ -442,6 +442,23 @@
   isolation: isolate;
 }
 
+/* The circle the peekers stay inside: centred on the middle of their 1100 x 700 canvas
+   (see .peekers above) and sized so the farthest pieces sit just within its edge.
+   Above the backdrop, below the peekers. */
+.package-stage::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 290px; /* canvas centre: -60px + 700px / 2 */
+  left: 50%;
+  width: 1060px;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
 .peekers {
   position: absolute;
   z-index: -1;
@@ -522,6 +539,10 @@
   .peekers,
   .backdrop {
     display: none; /* the card fills the screen; there is no room beside it */
+  }
+  .package-stage::before {
+    top: 50%; /* no peekers here, so just a halo around the card */
+    width: 100%;
   }
 }
 
@@ -688,6 +709,15 @@
   opacity: 0.5;
 }
 
+/* A dark film over the line art, under the text and form */
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.45);
+}
+
 .cta h2,
 .cta p {
   text-shadow: 0 0 18px var(--text-h), 0 0 6px var(--text-h); /* keeps text readable over the line art */
@@ -704,6 +734,203 @@
   max-width: 420px;
   color: var(--bg);
   opacity: 0.7;
+}
+
+/* Step progress bar at the top of the CTA */
+.cta-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  color: #f5f4ef;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cta-progress li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+
+.cta-progress li.is-current,
+.cta-progress li.is-done {
+  opacity: 1;
+}
+
+/* the line between the steps; it fills with the accent colour once the first step is done */
+.cta-progress li + li::before {
+  content: '';
+  width: clamp(32px, 10vw, 72px);
+  height: 2px;
+  margin-right: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background 0.3s ease;
+}
+
+.cta-progress li.is-current::before {
+  background: var(--accent);
+}
+
+.cta-progress-n {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.cta-progress li.is-current .cta-progress-n,
+.cta-progress li.is-done .cta-progress-n {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@media (max-width: 600px) {
+  .cta-progress-label {
+    display: none;
+  }
+}
+
+/* Form on the package page: folded away until "Get started" draws it out below the price bar */
+.cta-drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cta-drawer.is-open {
+  grid-template-rows: 1fr;
+}
+
+.cta-drawer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cta-drawer:not(.is-open) .cta-drawer-inner {
+  visibility: hidden;
+}
+
+.cta-attached {
+  margin: 16px 0 0;
+}
+
+/* Tighter layout while the contact form is open */
+.cta-compact {
+  padding: clamp(24px, 5vw, 40px) clamp(20px, 5vw, 48px);
+}
+
+.cta-compact .cta-progress {
+  margin-bottom: 16px;
+}
+
+.cta-compact h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+}
+
+.cta-compact p {
+  margin: 8px auto 20px;
+  font-size: 15px;
+}
+
+.cta-compact .contact-form {
+  gap: 10px;
+  max-width: 480px;
+}
+
+.cta-compact .contact-form label {
+  gap: 4px;
+  font-size: 13px;
+}
+
+.cta-compact .contact-form input,
+.cta-compact .contact-form textarea {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* Contact form (inside the CTA) */
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bg);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #f5f4ef;
+  font: inherit;
+  font-weight: 400;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.cta-open,
+.contact-form .btn {
+  border: 0;
+  cursor: pointer;
+  justify-self: center;
+  font-family: inherit;
+}
+
+.contact-form .btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+.cta .contact-error {
+  margin: 0;
+  max-width: none;
+  text-align: center;
+  font-size: 14px;
+  color: #ff8a8a;
+  text-shadow: none;
+  opacity: 1;
+}
+
+.contact-wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Footer */
@@ -792,6 +1019,10 @@
   from { opacity: 0; transform: translateY(28px); }
 }
 
+@keyframes rise-small {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
 @keyframes pop {
   from { opacity: 0; transform: translateY(72px) scale(0.94); }
 }
@@ -853,6 +1084,11 @@
     animation-name: pop;
     animation-duration: 0.95s;
   }
+  /* the CTA slides in with a much smaller movement than the other sections */
+  .cta.reveal.in {
+    animation-name: rise-small;
+    animation-duration: 0.6s;
+  }
 
   /* the ribbon draws itself, left to right along each line, once the cards are up */
   .ribbon path {
@@ -862,5 +1098,239 @@
   .services.in .ribbon path {
     animation: draw 2.2s cubic-bezier(0.5, 0.1, 0.25, 1) forwards;
     animation-delay: calc(var(--base, 0s) + 1.3s + var(--i) * 0.025s);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Phones. Kept at the end of the file so these win over the desktop rules above.
+   --------------------------------------------------------------------------- */
+.mobile-cta {
+  display: none; /* phones only; desktop uses the button in the header */
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+
+  /* side gutters: one value everywhere, so every section lines up */
+  .wrap,
+  :where(.page-package) .wrap {
+    padding: 0 20px;
+  }
+
+  .nav,
+  .footer,
+  .page-package .section {
+    margin: 0;
+  }
+
+  /* header: just the logo; the button moves to the bottom of the screen */
+  .nav {
+    padding-block: 14px; /* block only: a plain 'padding' would wipe the side gutter */
+  }
+  .logo img {
+    height: 32px;
+  }
+  .nav-cta {
+    display: none;
+  }
+
+  /* "Get in touch" stays pinned to the bottom of the screen, whatever the scroll */
+  .mobile-cta {
+    position: fixed;
+    z-index: 20;
+    left: 20px;
+    right: 20px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 15px 22px;
+    font-size: 16px;
+    box-shadow: 0 10px 28px rgba(255, 90, 31, 0.38), 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+  /* slid out of sight (and unclickable) while the hero is on screen */
+  .mobile-cta {
+    transform: translateY(calc(100% + 32px + env(safe-area-inset-bottom)));
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.35s;
+  }
+  .mobile-cta.is-shown {
+    transform: none;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .mobile-cta:hover {
+    transform: none;
+  }
+
+  /* hero */
+  /* the hero's own padding shorthand elsewhere zeroes the side gutter, so restore it here */
+  .hero,
+  .page-package .hero {
+    padding: 48px 20px 64px;
+  }
+  .hero-center,
+  .page-package .hero-center {
+    padding-top: 80px; /* room for the back link above the title */
+  }
+  .hero-back-wrap {
+    top: 20px;
+  }
+  .eyebrow {
+    margin-bottom: 16px;
+    font-size: 12px;
+  }
+  .hero h1 {
+    font-size: 2.3rem;
+  }
+  .hero p {
+    margin-top: 20px;
+    font-size: 1.05rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .hero-actions .btn {
+    text-align: center;
+  }
+
+  /* sections */
+  .section,
+  .page-package .section {
+    padding-block: 48px;
+  }
+  /* the package page's own section rule zeroes the side padding, so restore the gutter */
+  .page-package .section {
+    padding-inline: 20px;
+  }
+  .services-section,
+  .page-package .services-section {
+    padding: 56px 20px 64px;
+  }
+  .section-head {
+    margin-bottom: 24px;
+  }
+  .section-head h2 {
+    font-size: 1.9rem;
+  }
+  .section-head.center h2 {
+    margin-top: 8px;
+    font-size: 1.8rem;
+  }
+  .section-head.center p {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  .page-package .section-head.center {
+    margin-bottom: 28px;
+  }
+
+  /* cards */
+  .services {
+    --gap: 16px;
+  }
+  .card {
+    padding: 20px 20px 24px;
+    border-radius: 20px;
+  }
+  .card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 15px;
+  }
+  .card-badge {
+    top: 20px;
+    right: 18px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+  .package-card {
+    padding: 20px 20px 24px;
+  }
+  .package-foot {
+    margin-top: 20px;
+    padding-top: 18px;
+  }
+  .price {
+    font-size: 2.2rem;
+  }
+  .package-link {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+
+  /* price bar on the package page: stacked and centred */
+  .package-summary {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 28px 22px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  .package-summary-buy {
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 20px;
+    border-top: 1px solid #f3e4db;
+  }
+
+  /* steps */
+  .steps {
+    gap: 28px;
+  }
+
+  /* call to action */
+  .cta {
+    margin-bottom: 40px;
+    padding: 40px 22px;
+    border-radius: 22px;
+  }
+  .cta h2 {
+    font-size: 2rem;
+  }
+  .cta p {
+    margin: 12px auto 24px;
+  }
+  .cta-progress {
+    margin-bottom: 20px;
+  }
+  .cta-compact {
+    padding: 28px 18px 24px;
+  }
+  .cta-compact h2 {
+    font-size: 1.6rem;
+  }
+  .cta-compact p {
+    margin: 8px auto 18px;
+  }
+  .cta-attached {
+    margin: 12px 0 0;
+  }
+  .contact-form {
+    gap: 12px;
+  }
+  .contact-form .btn {
+    width: 100%;
+    text-align: center;
+  }
+  .cta-open {
+    width: 100%;
+  }
+
+  /* footer: stacked and centred, with room underneath for the pinned button */
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-block: 28px calc(96px + env(safe-area-inset-bottom));
+    text-align: center;
   }
 }

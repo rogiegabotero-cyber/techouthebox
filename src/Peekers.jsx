@@ -5,7 +5,7 @@
 // Each piece slides out from behind the card (see .peek in App.css) and then bobs.
 // ---------------------------------------------------------------------------
 
-const ORANGE = '#ff5a1f'
+const GRAY = '#9a9a96'
 const shadow = 'url(#peek-shadow)'
 
 // pieces are drawn around their own centre, then placed, tilted and scaled here
@@ -29,15 +29,15 @@ function WindowPiece() {
         <rect x="44" y="38" width="152" height="112" rx="12" fill="#fff" />
       </g>
       <path d="M44 50a12 12 0 0 1 12-12h128a12 12 0 0 1 12 12v10H44z" fill="#1d1d1f" />
-      <circle cx="58" cy="49" r="3.5" fill={ORANGE} />
-      <circle cx="69" cy="49" r="3.5" fill={ORANGE} />
+      <circle cx="58" cy="49" r="3.5" fill={GRAY} />
+      <circle cx="69" cy="49" r="3.5" fill={GRAY} />
       <circle cx="80" cy="49" r="3.5" fill="#fff" />
       <rect x="166" y="46" width="20" height="6" rx="3" fill="#555" />
       <rect x="58" y="72" width="44" height="6" rx="3" fill="#e8e6e4" />
       <rect x="58" y="84" width="30" height="6" rx="3" fill="#e8e6e4" />
       <rect x="120" y="68" width="58" height="42" rx="6" fill="#f1efed" />
       <path d="M128 102l14-18 10 12 8-8 16 14z" fill="#b9b6b3" />
-      <circle cx="162" cy="78" r="5" fill={ORANGE} />
+      <circle cx="162" cy="78" r="5" fill={GRAY} />
     </g>
   )
 }
@@ -61,8 +61,8 @@ function ServerPiece() {
           <polygon points={`136,${y} 152,${y - 9} 152,${y + 19} 136,${y + 28}`} fill="#e3ddd8" />
           <rect x="44" y={y} width="92" height="28" rx="6" fill="url(#peek-w)" stroke="#ece7e3" />
           <rect x="54" y={y + 9} width="40" height="10" rx="5" fill="#222" />
-          <circle cx="110" cy={y + 14} r="3" fill={ORANGE} />
-          <circle cx="122" cy={y + 14} r="3" fill="#ff8b5e" />
+          <circle cx="110" cy={y + 14} r="3" fill={GRAY} />
+          <circle cx="122" cy={y + 14} r="3" fill="#b8b8b4" />
         </g>
       ))}
     </g>
@@ -72,12 +72,12 @@ function ServerPiece() {
 function EnvelopePiece() {
   return (
     <g transform="translate(-114 -105)">
-      <path d="M58 98l56-42 56 42z" fill="#ff8b5e" />
+      <path d="M58 98l56-42 56 42z" fill="#b8b8b4" />
       <g filter={shadow}>
         <rect x="78" y="64" width="72" height="58" rx="6" fill="#fff" />
       </g>
-      <rect x="90" y="78" width="46" height="5" rx="2.5" fill="#ff8b5e" />
-      <rect x="90" y="90" width="32" height="5" rx="2.5" fill="#ffc9b0" />
+      <rect x="90" y="78" width="46" height="5" rx="2.5" fill="#b8b8b4" />
+      <rect x="90" y="90" width="32" height="5" rx="2.5" fill="#d8d8d4" />
       <g filter={shadow}>
         <rect x="58" y="96" width="112" height="60" rx="9" fill="url(#peek-w)" />
       </g>
@@ -89,8 +89,8 @@ function EnvelopePiece() {
 function PlanePiece() {
   return (
     <g transform="translate(-195 -52)">
-      <path d="M176 52l38-20-14 40z" fill={ORANGE} />
-      <path d="M176 52l22 8-4 12z" fill="#d9430f" />
+      <path d="M176 52l38-20-14 40z" fill={GRAY} />
+      <path d="M176 52l22 8-4 12z" fill="#74746f" />
     </g>
   )
 }
@@ -101,7 +101,7 @@ function AtPiece() {
       <g filter={shadow}>
         <rect x="26" y="114" width="42" height="42" rx="10" fill="#fff" />
       </g>
-      <text x="47" y="144" textAnchor="middle" fontSize="26" fontWeight="700" fontFamily="Inter, sans-serif" fill={ORANGE}>
+      <text x="47" y="144" textAnchor="middle" fontSize="26" fontWeight="700" fontFamily="Inter, sans-serif" fill={GRAY}>
         @
       </text>
     </g>
@@ -114,7 +114,7 @@ function CodePiece() {
       <g filter={shadow}>
         <rect x="24" y="94" width="50" height="50" rx="12" fill="#fff" />
       </g>
-      <text x="49" y="127" textAnchor="middle" fontSize="21" fontWeight="700" fontFamily="Inter, sans-serif" fill={ORANGE}>
+      <text x="49" y="127" textAnchor="middle" fontSize="21" fontWeight="700" fontFamily="Inter, sans-serif" fill={GRAY}>
         {'</>'}
       </text>
     </g>
@@ -125,10 +125,10 @@ function ButtonPiece() {
   return (
     <g transform="translate(-172 -135)">
       <g filter={shadow}>
-        <rect x="140" y="118" width="64" height="34" rx="9" fill={ORANGE} />
+        <rect x="140" y="118" width="64" height="34" rx="9" fill={GRAY} />
       </g>
       <rect x="150" y="128" width="32" height="4" rx="2" fill="#fff" />
-      <rect x="150" y="138" width="22" height="4" rx="2" fill="#ffd0bd" />
+      <rect x="150" y="138" width="22" height="4" rx="2" fill="#d8d8d4" />
     </g>
   )
 }
@@ -139,9 +139,9 @@ function UrlPiece() {
       <g filter={shadow}>
         <rect x="22" y="88" width="192" height="64" rx="14" fill="url(#peek-w)" />
       </g>
-      <circle cx="40" cy="102" r="4" fill={ORANGE} />
-      <circle cx="53" cy="102" r="4" fill="#ff8b5e" />
-      <circle cx="66" cy="102" r="4" fill="#ffc2a8" />
+      <circle cx="40" cy="102" r="4" fill={GRAY} />
+      <circle cx="53" cy="102" r="4" fill="#b8b8b4" />
+      <circle cx="66" cy="102" r="4" fill="#d8d8d4" />
       <rect x="36" y="112" width="164" height="30" rx="15" fill="#fff" stroke="#eeeae6" />
       <rect x="50" y="123" width="9" height="8" rx="1.5" fill="#333" />
       <path d="M52 123v-2.5a2.5 2.5 0 0 1 5 0V123" fill="none" stroke="#333" strokeWidth="1.6" />
@@ -154,7 +154,7 @@ function UrlPiece() {
 
 function CloudPiece() {
   return (
-    <g transform="translate(-202 -48)" fill={ORANGE}>
+    <g transform="translate(-202 -48)" fill={GRAY}>
       <circle cx="184" cy="52" r="14" />
       <circle cx="202" cy="40" r="18" />
       <circle cx="220" cy="54" r="13" />
@@ -163,10 +163,10 @@ function CloudPiece() {
   )
 }
 
-const Orb = ({ r }) => <circle r={r} fill={ORANGE} />
+const Orb = ({ r }) => <circle r={r} fill={GRAY} />
 
 const Dashed = ({ d }) => (
-  <path d={d} fill="none" stroke={ORANGE} strokeWidth="1.8" strokeDasharray="3 4" strokeLinecap="round" />
+  <path d={d} fill="none" stroke={GRAY} strokeWidth="1.8" strokeDasharray="3 4" strokeLinecap="round" />
 )
 
 // [component, props] in the order they slide out
@@ -199,7 +199,7 @@ function Peekers() {
     <svg className="peekers" viewBox="0 0 1100 700" aria-hidden="true">
       <defs>
         <filter id="peek-shadow" x="-25%" y="-25%" width="150%" height="170%">
-          <feDropShadow dx="0" dy="7" stdDeviation="6" floodColor={ORANGE} floodOpacity="0.18" />
+          <feDropShadow dx="0" dy="7" stdDeviation="6" floodColor={GRAY} floodOpacity="0.18" />
         </filter>
         <linearGradient id="peek-w" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#ffffff" />
