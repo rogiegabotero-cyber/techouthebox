@@ -262,6 +262,12 @@ export function ContactCta({ attached = false }) {
     }
   }, [attached])
 
+  // the button inside the panel: swap in the form, then centre the (now shorter) panel on screen
+  const openForm = () => {
+    setStage(1)
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToSection(sectionRef.current)))
+  }
+
   // focus without letting the browser jump the page; the smooth scroll above does the moving
   useEffect(() => {
     if (stage === 1) nameRef.current.focus({ preventScroll: true })
@@ -304,7 +310,7 @@ export function ContactCta({ attached = false }) {
             : 'Tell us about your business and we’ll take it from there.'}
         </p>
         {stage === 0 && (
-          <button type="button" className="btn btn-primary cta-open" onClick={() => setStage(1)}>
+          <button type="button" className="btn btn-primary cta-open" onClick={openForm}>
             I want a website
           </button>
         )}
